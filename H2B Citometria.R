@@ -1,0 +1,10 @@
+#download.file(
+data<-rename(H2B_GFP_Citometria, "GFP"="%GFP")
+mycolors<-colorRampPalette(c("black","green"))(6)
+mylevels<-c('C-', '3:1', '2:1', '1:1',"1:2","1:3")
+g<-ggplot(data, aes(x=factor(Ratio, mylevels), y=GFP, group=1))
+p<-g+geom_point(size=3, col=mycolors)+geom_line(color=mycolors, size=1)+ylim(c(0,5))
+p<-p+xlab("Ratio DNA:PEI (mass)")+ylab("%GFP Positive cells")+ggtitle(label = "Fluorescent Cells with H2B-GFP")
+h<-ggplot(data, aes(x=factor(Ratio, mylevels), y = Viabilidad, alpha=Viabilidad))+geom_col(col="orange", fill="orange", show.legend = FALSE)  
+h<-h+xlab("Ratio DNA:PEI (mass)")+ylab("% of Living Cells")+ggtitle("Effect of PEI on Viability")
+print(p); print(h)
